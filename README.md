@@ -26,9 +26,16 @@ source .venv/bin/activate  # Activate environment (Linux/Mac)
 # Run analysis
 uv run python src/main.py
 
+# Start Jupyter notebook (traditional)
+uv run jupyter notebook
+
+# Start Marimo notebook (reactive, modern)
+uv run marimo edit
+
 # Or use Make commands
 make install    # Install dependencies
-make notebook   # Start Jupyter notebook
+make notebook   # Start Jupyter
+make marimo     # Start Marimo
 make test       # Run tests
 \`\`\`
 
@@ -44,8 +51,9 @@ project-name/
 │   ├── interim/          # Intermediate transformations
 │   ├── processed/        # Final datasets for modeling
 │   └── external/         # Third-party data
-├── notebooks/            # Jupyter notebooks
+├── notebooks/            # Jupyter & Marimo notebooks
 │   ├── 01-your-initials-data-exploration.ipynb
+│   ├── 02-your-initials-analysis.py  # Marimo notebooks
 │   └── archive/          # Old experiments
 ├── src/                  # Source code
 │   ├── data/             # Data processing
@@ -61,9 +69,10 @@ project-name/
 
 ## 🔧 Technologies Used
 - **Package Manager**: UV (fast Python package manager)
-- **Data Processing**: Pandas, NumPy
+- **Data Processing**: Pandas, Polars (fast DataFrame operations)
 - **Machine Learning**: Scikit-learn
 - **Visualization**: Matplotlib, Seaborn, Plotly
+- **Notebooks**: Jupyter (traditional), Marimo (reactive)
 - **Environment**: Python 3.9+
 
 ## 💻 Development Commands
@@ -78,8 +87,14 @@ uv sync --extra dev
 # Run scripts with UV
 uv run python src/main.py
 
-# Start Jupyter
+# Start Jupyter (traditional notebook)
 uv run jupyter notebook
+
+# Start Marimo (reactive notebook - automatically re-runs cells!)
+uv run marimo edit
+
+# Create new Marimo notebook
+uv run marimo new notebooks/analysis.py
 
 # Run tests
 uv run pytest
@@ -91,11 +106,27 @@ uv run ruff format src/
 uv run ruff check src/
 \`\`\`
 
+## 🌟 Why Polars?
+Polars is included alongside Pandas for:
+- ⚡ **10x faster** operations on large datasets
+- 🔄 **Lazy evaluation** - optimizes query plans automatically
+- 💾 **Better memory usage** - handles datasets larger than RAM
+- 🎯 **Similar API** to Pandas - easy to learn
+
+## 🎨 Why Marimo?
+Marimo is included alongside Jupyter for:
+- 🔄 **Reactive execution** - cells auto-update when dependencies change
+- 🐛 **No hidden state** - prevents common notebook bugs
+- 🚀 **Runs as scripts** - notebooks are just Python files
+- 🎯 **Git-friendly** - clean diffs, easy versioning
+- 📱 **Interactive apps** - deploy notebooks as web apps
+
 ## 📝 Next Steps
 1. Update this README with your project details
 2. Add your data to the data/raw folder
-3. Create notebooks for exploration
+3. Create notebooks for exploration (Jupyter or Marimo)
 4. Build your analysis pipeline
+5. Try Polars for large dataset operations
 
 ## 👤 Author
 [Your Name] - [Your LinkedIn/GitHub]
