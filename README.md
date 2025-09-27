@@ -9,8 +9,7 @@
 [2-3 sentences explaining the problem, approach, and outcome]
 
 ## 🚀 Quick Start
-
-\`\`\`bash
+```bash
 # Clone this repository
 git clone https://github.com/yourusername/project-name
 cd project-name
@@ -37,11 +36,11 @@ make install    # Install dependencies
 make notebook   # Start Jupyter
 make marimo     # Start Marimo
 make test       # Run tests
-\`\`\`
+```
 
 ## 📁 Project Structure
 
-\`\`\`
+```bash
 project-name/
 ├── pyproject.toml        # Project config & dependencies (UV)
 ├── uv.lock              # Lock file for reproducibility
@@ -65,19 +64,20 @@ project-name/
 │   └── figures/          # Visualizations
 ├── tests/                # Unit tests
 └── README.md             # This file
-\`\`\`
+```
 
 ## 🔧 Technologies Used
-- **Package Manager**: UV (fast Python package manager)
-- **Data Processing**: Pandas, Polars (fast DataFrame operations)
-- **Machine Learning**: Scikit-learn
-- **Visualization**: Matplotlib, Seaborn, Plotly
-- **Notebooks**: Jupyter (traditional), Marimo (reactive)
-- **Environment**: Python 3.9+
+
+* Package Manager: UV (fast Python package manager)
+* Data Processing: Pandas, Polars (fast DataFrame operations)
+* Machine Learning: Scikit-learn
+* Visualization: Matplotlib, Seaborn, Plotly
+* Notebooks: Jupyter (traditional), Marimo (reactive)
+* Environment: Python 3.10+
 
 ## 💻 Development Commands
 
-\`\`\`bash
+```bash
 # Install dependencies
 uv sync
 
@@ -104,24 +104,29 @@ uv run ruff format src/
 
 # Check code quality
 uv run ruff check src/
-\`\`\`
+```
 
 ## 🌟 Why Polars?
+
 Polars is included alongside Pandas for:
-- ⚡ **10x faster** operations on large datasets
-- 🔄 **Lazy evaluation** - optimizes query plans automatically
-- 💾 **Better memory usage** - handles datasets larger than RAM
-- 🎯 **Similar API** to Pandas - easy to learn
+
+* ⚡ 10x faster operations on large datasets
+* 🔄 Lazy evaluation - optimizes query plans automatically
+* 💾 Better memory usage - handles datasets larger than RAM
+* 🎯 Similar API to Pandas - easy to learn
 
 ## 🎨 Why Marimo?
+
 Marimo is included alongside Jupyter for:
-- 🔄 **Reactive execution** - cells auto-update when dependencies change
-- 🐛 **No hidden state** - prevents common notebook bugs
-- 🚀 **Runs as scripts** - notebooks are just Python files
-- 🎯 **Git-friendly** - clean diffs, easy versioning
-- 📱 **Interactive apps** - deploy notebooks as web apps
+
+* 🔄 Reactive execution - cells auto-update when dependencies change
+* 🐛 No hidden state - prevents common notebook bugs
+* 🚀 Runs as scripts - notebooks are just Python files
+* 🎯 Git-friendly - clean diffs, easy versioning
+* 📱 Interactive apps - deploy notebooks as web apps
 
 ## 📝 Next Steps
+
 1. Update this README with your project details
 2. Add your data to the data/raw folder
 3. Create notebooks for exploration (Jupyter or Marimo)
