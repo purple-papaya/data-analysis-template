@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up UV
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+      
+      - name: Install dependencies
+        run: |
+          uv sync --extra dev
+      
+      - name: Run linting
+        run: |
+          uv run ruff check src/ tests/
+      
+      - name: Run formatting check
+        run: |
+          uv run ruff format --check src/ tests/
+      
+      - name: Run type checking
+        run: |
+          uv run mypy src/ || echo "Type checking failed (non-blocking)"
+      
+      - name: Run tests
+        run: |
+          uv run pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        if: matrix.python-version == '3.11'
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: false
+
+  template-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate template structure
+        run: |
+          echo "Checking required files and directories..."
+          
+          required_files=(
+            "README.md"
+            "pyproject.toml"
+            ".gitignore"
+            "src/data_analysis_template/__init__.py"
+          )
+          
+          required_dirs=(
+            "src"
+            "tests"
+            "data"
+            "notebooks"
+            "docs"
+          )
+          
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing: $file"
+              exit 1
+            else
+              echo "✓ Found: $file"
+            fi
+          done
+          
+          for dir in "${required_dirs[@]}"; do
+            if [ ! -d "$dir" ]; then
+              echo "❌ Missing directory: $dir"
+              exit 1
+            else
+              echo "✓ Found directory: $dir"
+            fi
+          done
+          
+          echo ""
+          echo "✅ Template structure is valid!"
+      
+      - name: Check if package is installable
+        run: |
+          pip install uv
+          uv pip install -e . --system
+          python -c "import data_analysis_template; print(f'Package version: {data_analysis_template.__version__}')"
+          echo "✅ Package is installable!"
