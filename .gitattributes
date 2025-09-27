@@ -1,0 +1,28 @@
+# Text files - enforce LF
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.sh text eol=lf
+
+# Marimo notebooks
+*.marimo.py text eol=lf diff=python
+
+# Data files - Git LFS
+*.parquet filter=lfs diff=lfs merge=lfs -text
+*.hdf5 filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
+*.arrow filter=lfs diff=lfs merge=lfs -text
+
+# Model artifacts - Git LFS
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text
+
+# Jupyter notebooks
+*.ipynb text eol=lf diff=jupyternotebook
+
+# DVC files
+*.dvc text eol=lf
