@@ -101,6 +101,6 @@ jobs:
       - name: Check if package is installable
         run: |
           pip install uv
-          uv pip install -e . --system
-          python -c "import data_analysis_template; print(f'Package version: {data_analysis_template.__version__}')"
+          uv sync
+          uv run python -c "import data_analysis_template; print(f'Package version: {data_analysis_template.__version__}')"
           echo "✅ Package is installable!"
