@@ -14,7 +14,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo.
 echo Installing dependencies (including Polars and Marimo)...
-uv sync
+uv sync --extra all
 
 echo.
 echo Setup complete!
