@@ -9,12 +9,35 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 
+# Core dependencies - everything you need for the main analysis
 dependencies = [
+    # Data processing
     "polars>=0.20.0",
+    "pandas>=2.0.0",
     "pyarrow>=15.0.0",
+    
+    # Interactive notebooks (core to your workflow!)
+    "marimo>=0.6.0",
+    "jupyter>=1.0.0",
+    "ipykernel>=6.29.0",
+    
+    # Visualization (essential for data analysis)
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "plotly>=5.20.0",
+    
+    # Data science basics
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "scikit-learn>=1.4.0",
+    
+    # Utilities
+    "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
 ]
 
 [project.optional-dependencies]
+# Development tools (truly optional)
 dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",
@@ -23,26 +46,22 @@ dev = [
     "pre-commit>=3.7.0",
 ]
 
-notebooks = [
-    "marimo>=0.6.0",
-    "jupyter>=1.0.0",
-    "ipykernel>=6.29.0",
-]
-
-ml = [
-    "scikit-learn>=1.4.0",
+# Advanced ML (optional - only if needed)
+ml-extra = [
     "xgboost>=2.0.0",
     "lightgbm>=4.3.0",
+    "statsmodels>=0.14.0",
 ]
 
-viz = [
-    "matplotlib>=3.8.0",
-    "seaborn>=0.13.0",
-    "plotly>=5.20.0",
+# Documentation (optional)
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.5.0",
 ]
 
+# All extras
 all = [
-    "data-analysis-template[dev,notebooks,ml,viz]",
+    "data-analysis-template[dev,ml-extra,docs]",
 ]
 
 [build-system]
@@ -89,7 +108,7 @@ addopts = """
     -v
     --strict-markers
     --tb=short
-    --cov=src/data_analysis_template
+    --cov=src/czech_ozone
     --cov-report=term-missing
     --cov-report=html
 """
