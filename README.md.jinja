@@ -1,6 +1,6 @@
-# [Project Name]
+# {{ project_name }}
 
-> **Note:** This is a template repository. Click "Use this template" to create a new project!
+{{ project_description }}
 
 ## 🎯 Business Impact
 [One sentence describing the measurable business value]
@@ -11,8 +11,8 @@
 ## 🚀 Quick Start
 ```bash
 # Clone this repository
-git clone https://github.com/yourusername/project-name
-cd project-name
+git clone https://github.com/{{ github_username }}/{{ project_name }}
+cd {{ project_name }}
 
 # Option 1: Use setup script (installs UV if needed)
 ./setup.sh
@@ -73,7 +73,7 @@ project-name/
 * Machine Learning: Scikit-learn
 * Visualization: Matplotlib, Seaborn, Plotly
 * Notebooks: Jupyter (traditional), Marimo (reactive)
-* Environment: Python 3.10+
+* Environment: Python {{ python_version }}+
 
 ## 💻 Development Commands
 
@@ -134,4 +134,4 @@ Marimo is included alongside Jupyter for:
 5. Try Polars for large dataset operations
 
 ## 👤 Author
-[Your Name] - [Your LinkedIn/GitHub]
+{{ author_name }}{% if github_username %} - [@{{ github_username }}](https://github.com/{{ github_username }}){% endif %}

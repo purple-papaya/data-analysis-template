@@ -1,0 +1,14 @@
+"""Basic tests for the template."""
+
+import {{ project_slug }}
+
+
+def test_version():
+    """Test that version is defined."""
+    assert hasattr({{ project_slug }}, "__version__")
+    assert {{ project_slug }}.__version__ == "0.1.0"
+
+
+def test_import():
+    """Test that package can be imported."""
+    assert {{ project_slug }} is not None

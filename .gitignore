@@ -59,3 +59,5 @@ htmlcov/
 # Logs
 *.log
 logs/
+# Copier answers (in generated projects)
+.copier-answers.yml

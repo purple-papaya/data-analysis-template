@@ -1,0 +1,116 @@
+# Copier template configuration
+_min_copier_version: "9.0.0"
+
+# Exclude files from the generated project
+_exclude:
+  - copier.yml
+  - .git
+  - "*.pyc"
+  - __pycache__
+  - .venv
+  - uv.lock
+  - "*.log"
+  - TEMPLATE_SETUP_GUIDE.md
+  - COPIER_USAGE.md
+
+# Template questions
+project_name:
+  type: str
+  help: What is your project name?
+  placeholder: "my-data-analysis"
+
+project_slug:
+  type: str
+  help: Python package name (auto-generated from project name)
+  default: "{{ project_name | lower | replace('-', '_') | replace(' ', '_') }}"
+
+project_description:
+  type: str
+  help: Brief project description
+  default: "A modern data analysis project"
+  placeholder: "Analyzing customer behavior patterns"
+
+author_name:
+  type: str
+  help: Your name
+  default: "Your Name"
+  placeholder: "Jane Doe"
+
+author_email:
+  type: str
+  help: Your email
+  default: "your.email@example.com"
+  placeholder: "jane.doe@example.com"
+
+github_username:
+  type: str
+  help: Your GitHub username
+  default: "{{ author_name | lower | replace(' ', '-') }}"
+  placeholder: "janedoe"
+
+python_version:
+  type: str
+  help: Python version
+  default: "3.10"
+  choices:
+    - "3.10"
+    - "3.11"
+    - "3.12"
+
+license:
+  type: str
+  help: Choose a license
+  default: "MIT"
+  choices:
+    - MIT
+    - Apache-2.0
+    - GPL-3.0
+    - BSD-3-Clause
+    - None
+
+include_marimo:
+  type: bool
+  help: Include Marimo (reactive notebooks)?
+  default: true
+
+include_jupyter:
+  type: bool
+  help: Include Jupyter (traditional notebooks)?
+  default: true
+
+include_ml_extras:
+  type: bool
+  help: Include ML extras (XGBoost, LightGBM, etc.)?
+  default: false
+
+include_docs:
+  type: bool
+  help: Include documentation setup (MkDocs)?
+  default: false
+
+use_github_actions:
+  type: bool
+  help: Include GitHub Actions CI/CD?
+  default: true
+
+# Post-generation cleanup tasks
+_tasks:
+  - >-
+    {% if not use_github_actions %}
+    rm -rf .github/workflows
+    {% endif %}
+  - >-
+    {% if not include_docs %}
+    rm -rf docs
+    {% endif %}
+  - echo "🎉 Project '{{ project_name }}' created successfully!"
+  - echo ""
+  - echo "📋 Next steps:"
+  - echo "  1. cd {{ project_name }}"
+  - echo "  2. ./setup.sh  (or setup.bat on Windows)"
+  - echo "  3. Update README.md with your project details"
+  - echo ""
+  - echo "💡 Quick commands:"
+  - echo "  • make install    - Install dependencies"
+  - echo "  • make marimo     - Start Marimo notebooks"
+  - echo "  • make test       - Run tests"
