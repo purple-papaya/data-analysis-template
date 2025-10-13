@@ -108,7 +108,7 @@ addopts = """
     -v
     --strict-markers
     --tb=short
-    --cov=src/czech_ozone
+    --cov=src/data_analysis_template
     --cov-report=term-missing
     --cov-report=html
 """
