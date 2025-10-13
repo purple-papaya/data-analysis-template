@@ -1,43 +1,38 @@
 [project]
-name = "data-analysis-template"
+name = "{{ project_name }}"
 version = "0.1.0"
-description = "Modern data science template with UV, Polars, and Marimo"
+description = "{{ project_description }}"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "{{ author_name }}", email = "{{ author_email }}"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
-license = {text = "MIT"}
+requires-python = ">={{ python_version }}"
+{% if license != "None" -%}
+license = {text = "{{ license }}"}
+{% endif %}
 
-# Core dependencies - everything you need for the main analysis
 dependencies = [
-    # Data processing
     "polars>=0.20.0",
     "pandas>=2.0.0",
     "pyarrow>=15.0.0",
-    
-    # Interactive notebooks (core to your workflow!)
+    {% if include_marimo -%}
     "marimo>=0.6.0",
+    {% endif -%}
+    {% if include_jupyter -%}
     "jupyter>=1.0.0",
     "ipykernel>=6.29.0",
-    
-    # Visualization (essential for data analysis)
+    {% endif -%}
     "matplotlib>=3.8.0",
     "seaborn>=0.13.0",
     "plotly>=5.20.0",
-    
-    # Data science basics
     "numpy>=1.24.0",
     "scipy>=1.10.0",
     "scikit-learn>=1.4.0",
-    
-    # Utilities
     "python-dotenv>=1.0.0",
     "requests>=2.31.0",
 ]
 
 [project.optional-dependencies]
-# Development tools (truly optional)
 dev = [
     "pytest>=8.0.0",
     "pytest-cov>=4.1.0",
@@ -46,22 +41,23 @@ dev = [
     "pre-commit>=3.7.0",
 ]
 
-# Advanced ML (optional - only if needed)
+{% if include_ml_extras -%}
 ml-extra = [
     "xgboost>=2.0.0",
     "lightgbm>=4.3.0",
     "statsmodels>=0.14.0",
 ]
+{% endif -%}
 
-# Documentation (optional)
+{% if include_docs -%}
 docs = [
     "mkdocs>=1.5.0",
     "mkdocs-material>=9.5.0",
 ]
+{% endif -%}
 
-# All extras
 all = [
-    "data-analysis-template[dev,ml-extra,docs]",
+    "{{ project_name }}[dev{% if include_ml_extras %},ml-extra{% endif %}{% if include_docs %},docs{% endif %}]",
 ]
 
 [build-system]
@@ -69,36 +65,23 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/data_analysis_template"]
+packages = ["src/{{ project_slug }}"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py{{ python_version | replace('.', '') }}"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "N",   # pep8-naming
-    "UP",  # pyupgrade
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "PTH", # flake8-use-pathlib
-]
-ignore = [
-    "E501",  # line too long (handled by formatter)
-    "B008",  # do not perform function calls in argument defaults
-]
+select = ["E", "W", "F", "I", "N", "UP", "B", "C4", "PTH"]
+ignore = ["E501", "B008"]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]  # unused imports
-"tests/*" = ["S101"]      # use of assert
+"__init__.py" = ["F401"]
+"tests/*" = ["S101"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -108,29 +91,22 @@ addopts = """
     -v
     --strict-markers
     --tb=short
-    --cov=src/data_analysis_template
+    --cov=src/{{ project_slug }}
     --cov-report=term-missing
     --cov-report=html
 """
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "{{ python_version }}"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
 ignore_missing_imports = true
-exclude = [
-    "^notebooks/",
-    "^tests/",
-]
+exclude = ["^notebooks/", "^tests/"]
 
 [tool.coverage.run]
 source = ["src"]
-omit = [
-    "*/tests/*",
-    "*/__pycache__/*",
-    "*/.venv/*",
-]
+omit = ["*/tests/*", "*/__pycache__/*", "*/.venv/*"]
 
 [tool.coverage.report]
 exclude_lines = [
