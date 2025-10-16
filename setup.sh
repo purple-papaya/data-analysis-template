@@ -18,15 +18,14 @@ echo "📚 Installing dependencies (including Polars and Marimo)..."
 uv sync --extra all
 
 echo ""
-echo "Activating the nevironment..."
-source .venv/bin/activate
-
-echo ""
 echo "✅ Setup complete!"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🎯 Quick Start Commands:"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "  Activate environment:"
+echo "    source .venv/bin/activate"
 echo ""
 echo "  Start Jupyter (traditional):"
 echo "    uv run jupyter notebook"
